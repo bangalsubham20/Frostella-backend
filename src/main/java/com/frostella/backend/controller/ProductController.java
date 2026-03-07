@@ -13,6 +13,8 @@ public class ProductController {
     public List<Product> getAll() { return productRepository.findAll(); }
     @PostMapping
     public Product create(@RequestBody Product product) { return productRepository.save(product); }
+    @GetMapping("/{id}")
+    public Product getById(@PathVariable Long id) { return productRepository.findById(id).orElse(null); }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) { productRepository.deleteById(id); }
 }
