@@ -42,6 +42,9 @@ public class Order {
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Column(name = "payment_transaction_id")
+    private String paymentTransactionId;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
