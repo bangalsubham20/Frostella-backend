@@ -3,8 +3,9 @@ package com.frostella.backend.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -19,9 +20,8 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_date", updatable = false)
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount;
@@ -32,9 +32,8 @@ public class Order {
     @Column(name = "delivery_address", columnDefinition = "TEXT", nullable = false)
     private String deliveryAddress;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "delivery_date")
-    private Date deliveryDate;
+    private LocalDate deliveryDate;
 
     @Column(name = "special_instructions", columnDefinition = "TEXT")
     private String specialInstructions;
@@ -46,10 +45,12 @@ public class Order {
     private String paymentTransactionId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
-        orderDate = new Date();
+        if (orderDate == null) {
+            orderDate = LocalDateTime.now();
+        }
     }
 }
