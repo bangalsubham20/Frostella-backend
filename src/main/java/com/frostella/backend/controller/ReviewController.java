@@ -16,6 +16,12 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Review> getAll() {
+        return reviewService.getAllReviews();
+    }
+
     @GetMapping("/product/{productId}")
     public List<Review> getByProduct(@PathVariable Long productId) {
         return reviewService.getReviewsByProductId(productId);
