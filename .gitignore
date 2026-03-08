@@ -33,9 +33,16 @@ logs/
 Thumbs.db
 
 # 5. Environment configuration (NEVER COMMIT SECRETS)
-# uncomment line below if you plan to inject application.properties differently
-# application-dev.properties
-# application-prod.properties
+.env
+.env.*
+application-dev.properties
+application-prod.properties
 
-# 6. Maven Wrapper (Optional: exclude wrapper jar, keep scripts if needed)
+# 6. Maven Wrapper
 .mvn/wrapper/maven-wrapper.jar
+
+# 7. Additional IDE/System
+.nbproject/
+.factorypath
+bin/
+lib/
