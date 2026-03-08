@@ -41,9 +41,15 @@ public class OrderService {
         
         // Send confirmation email
         try {
-            User user = userRepository.findById(order.getUser().getId()).orElse(null);
-            if (user != null) {
-                emailService.sendOrderConfirmation(savedOrder);
+            if (order.getUser() != null) {
+                Long userId = order.getUser().getId();
+                if (userId != null) {
+                    long userIdVal = userId;
+                    User user = userRepository.findById(userIdVal).orElse(null);
+                    if (user != null) {
+                        emailService.sendOrderConfirmation(savedOrder);
+                    }
+                }
             }
         } catch (Exception e) {
             // Log error but don't fail the order

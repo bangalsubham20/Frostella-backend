@@ -20,4 +20,15 @@ public class UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
+    public User updateUser(Long id, User userDetails) {
+        User user = getUserById(id);
+        if (user != null) {
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+            // Role and password usually handled elsewhere or carefully
+            return userRepository.save(user);
+        }
+        return null;
+    }
 }
